@@ -2,6 +2,59 @@
 
 ## Helpers
 
+### Fix docker access on ubuntu
+[Link](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket)
+
+Execute:
+```bash
+sudo chmod 666 /var/run/docker.sock
+```
+
+### Proxmox disk passthrough
+[Video](https://www.youtube.com/watch?v=U-UTMuhmC1U)
+
+1. Find the disk Id you need and copy it: 
+```bash
+ls -n /dev/disk/by-id/
+```
+Passthrough the disk with ID=DISK_ID to the virtual machine with ID=VM-ID: 
+```bash
+/sbin/qm set [VM-ID] -virtio2 /dev/disk/by-id/[DISK-ID]
+```
+
+### Mount disk 
+[Video](https://www.youtube.com/watch?v=a3QTaV4Cg7M)
+
+1. Made a directory to mount disk to: 
+```bash
+mkdir /mnt/disk_name
+```
+
+2. List all disks: 
+```bash
+ls -l /dev/disk/by-uuid/*
+```
+3. Copy UUID of the disk you want to mount
+
+4. Edit file `/etc/fstab`: 
+```bash
+nano /etc/fstab
+```
+5. Add line to the end:
+```
+/dev/disk/by-uuid/$DISK_UUID /mnt/$MOUNT_DIRECTORY ext4 defaults 0
+```
+
+6. Mount the disk: 
+```bash
+mount -a
+```
+
+7. Check the mount by: 
+```bash
+lsblk
+```
+
 ### Updating of Linux Kernel
 
 [Update Linux Kernel version](https://askubuntu.com/questions/1388115/how-do-i-update-my-kernel-to-the-latest-one)
