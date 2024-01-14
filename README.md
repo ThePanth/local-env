@@ -3,11 +3,13 @@
 ## Helpers
 
 ### Fix docker access on ubuntu
-[Link](https://www.digitalocean.com/community/questions/how-to-fix-docker-got-permission-denied-while-trying-to-connect-to-the-docker-daemon-socket)
+[Link](https://docs.docker.com/engine/install/linux-postinstall/)
 
 Execute:
 ```bash
-sudo chmod 666 /var/run/docker.sock
+sudo groupadd docker
+sudo usermod -aG docker $USER
+reboot
 ```
 
 ### Proxmox disk passthrough
