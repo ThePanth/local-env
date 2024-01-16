@@ -47,6 +47,11 @@ nano /etc/fstab
 /dev/disk/by-uuid/$DISK_UUID /mnt/$MOUNT_DIRECTORY ext4 defaults 0
 ```
 
+To mount NFS add the next line to the end:
+```
+host_ip:/shared/folder/path    /mount/folder/path   nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0
+```
+
 6. Mount the disk: 
 ```bash
 mount -a
